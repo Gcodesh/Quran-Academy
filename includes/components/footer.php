@@ -1,0 +1,33 @@
+<?php
+// Footer component
+$is_subfolder = (strpos($_SERVER['PHP_SELF'], '/dashboard/') !== false || strpos($_SERVER['PHP_SELF'], '/admin/') !== false || strpos($_SERVER['PHP_SELF'], '/teacher/') !== false);
+$base_path = $is_subfolder ? '../../' : '../';
+?>
+
+<footer class="site-footer">
+    <div class="container">
+        <p>&copy; <?= date('Y'); ?> بِنَاءُ الْمُسْلِمِ - عِلْمٌ يَبْنِي مُسْلِم. جميع الحقوق محفوظة.</p>
+        <div class="social-links">
+            <a href="#" style="display:inline-block; width:30px; height:30px; background:#1877f2; border-radius:50%; text-align:center; line-height:30px; color:#fff; text-decoration:none; font-weight:bold;">f</a>
+            <a href="#" style="display:inline-block; width:30px; height:30px; background:#1da1f2; border-radius:50%; text-align:center; line-height:30px; color:#fff; text-decoration:none; font-weight:bold;">t</a>
+            <a href="#" style="display:inline-block; width:30px; height:30px; background:#e4405f; border-radius:50%; text-align:center; line-height:30px; color:#fff; text-decoration:none; font-weight:bold;">i</a>
+        </div>
+    </div>
+</footer>
+
+<script src="<?= $base_path ?>assets/js/main.js"></script>
+<script src="<?= $base_path ?>assets/js/ajax.js"></script>
+<script src="<?= $base_path ?>assets/js/language-switcher.js"></script>
+<script src="<?= $base_path ?>assets/js/theme-toggle.js"></script>
+<script src="<?= $base_path ?>assets/js/home.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    }
+</script>
+</body>
+</html>

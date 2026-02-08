@@ -1,0 +1,36 @@
+/* ==============================
+
+   RTL Support
+
+   ============================== */
+
+body {
+
+    direction: rtl;
+
+}
+
+
+
+.site-header .main-nav ul {
+
+    flex-direction: row-reverse;
+
+}
+
+
+
+.hero, .featured-courses, .testimonials {
+
+    text-align: right;
+
+}
+
+
+
+.courses-grid, .testimonials-grid {
+
+    direction: rtl;
+
+}
+

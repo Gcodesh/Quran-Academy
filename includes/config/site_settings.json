@@ -1,0 +1,12 @@
+{
+    "site_name": "بِنَاءُ الْمُسْلِمِ",
+    "site_description": "منصة التعليم الإسلامي الرائدة",
+    "contact_email": "admin@islamic-edu.com",
+    "maintenance_mode": false,
+    "allow_registration": true,
+    "currency": "SAR",
+    "payment_gateway": "stripe_mock",
+    "primary_color": "#10b981",
+    "logo_path": "assets/images/logo_new.png",
+    "favicon_path": "assets/images/favicon_new.png"
+}

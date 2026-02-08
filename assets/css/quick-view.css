@@ -1,0 +1,48 @@
+/* Quick View Button Styles */
+.course-image {
+    position: relative;
+    overflow: hidden;
+    /* Needed for image zoom effect */
+}
+
+.quick-view-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: var(--bg-surface);
+    color: var(--primary-color);
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 700;
+    text-decoration: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: var(--shadow-md);
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.course-card:hover .quick-view-btn {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.quick-view-btn:hover {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+}
+
+/* Enhancing existing image for hover effect */
+.course-image img {
+    transition: transform 0.5s ease;
+    width: 100%;
+    /* Ensure image fits */
+    display: block;
+}
+
+.course-card:hover .course-image img {
+    transform: scale(1.1);
+}

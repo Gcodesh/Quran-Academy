@@ -1,0 +1,52 @@
+name: CI Platform Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: islamic_education_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0'
+        extensions: pdo, pdo_mysql
+
+    - name: Install Dependencies
+      run: composer install --prefer-dist --no-progress
+
+    - name: Run Migrations
+      env:
+        DB_HOST: 127.0.0.1
+        DB_USER: root
+        DB_PASS: root
+        DB_NAME: islamic_education_test
+      run: php migrations/run.php
+
+    - name: Run Static Analysis (Linting)
+      run: find src -name "*.php" -print0 | xargs -0 -n1 php -l
+
+    - name: Run Tests
+      env:
+        DB_HOST: 127.0.0.1
+        DB_USER: root
+        DB_PASS: root
+        DB_NAME: islamic_education_test
+      run: vendor/bin/phpunit

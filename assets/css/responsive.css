@@ -1,0 +1,522 @@
+/* ==============================
+   Responsive Styles - Islamic Education Platform
+   Mobile First Approach
+   ============================== */
+
+/* =========================
+   Extra Large Screens (1400px+)
+   ========================= */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+}
+
+/* =========================
+   Large Screens (1200px - 1399px)
+   ========================= */
+@media (max-width: 1399px) {
+    .hero-grid-wrapper {
+        gap: 30px !important;
+    }
+}
+
+/* =========================
+   Medium-Large Screens (992px - 1199px)
+   ========================= */
+@media (max-width: 1199px) {
+    .container {
+        width: 95%;
+    }
+
+    .courses-grid-modern {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =========================
+   Tablet Landscape (992px)
+   ========================= */
+@media (max-width: 992px) {
+
+    /* Header */
+    .site-header {
+        position: relative;
+    }
+
+    .site-header .main-nav ul {
+        display: none;
+    }
+
+    .site-header .main-nav ul.active {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        padding: 20px;
+        box-shadow: var(--shadow-lg);
+        border-radius: 0 0 16px 16px;
+        z-index: 1000;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .site-header .container {
+        position: relative;
+    }
+
+    .quick-auth {
+        display: none;
+    }
+
+    /* Hero Section */
+    .hero-grid-wrapper {
+        grid-template-columns: 1fr !important;
+        text-align: center;
+    }
+
+    .hero-visual {
+        display: none;
+    }
+
+    .hero-title {
+        font-size: 2.5rem !important;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .hero-stats {
+        justify-content: center;
+    }
+
+    /* Features */
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* Course Cards */
+    .courses-grid,
+    .courses-grid-modern {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Stats */
+    .stats-container-modern {
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    .stats-grid,
+    .stats-container-modern>div {
+        flex: 0 0 45%;
+    }
+
+    /* Contact Box */
+    .contact-box {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Footer */
+    .site-footer .container {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    /* Dashboard */
+    .dashboard-sidebar {
+        transform: translateX(100%);
+        position: fixed;
+        z-index: 999;
+    }
+
+    .dashboard-sidebar.active {
+        transform: translateX(0);
+    }
+
+    .dashboard-content {
+        margin-right: 0;
+        width: 100%;
+    }
+}
+
+/* =========================
+   Tablet Portrait (768px)
+   ========================= */
+@media (max-width: 768px) {
+
+    /* Typography */
+    h1,
+    .hero h1,
+    .hero-title {
+        font-size: 2rem !important;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .hero p,
+    .hero-subtitle {
+        font-size: 1rem !important;
+    }
+
+    /* Sections */
+    .section,
+    section {
+        padding: 50px 0;
+    }
+
+    /* Course Grid */
+    .courses-grid,
+    .courses-grid-modern,
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Hero */
+    .hero-modern {
+        padding: 60px 0 80px;
+    }
+
+    .hero-badge {
+        font-size: 0.85rem;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .stat-divider {
+        display: none;
+    }
+
+    /* Floating Cards - Hide */
+    .floating-cards {
+        display: none;
+    }
+
+    /* Auth Pages */
+    .auth-box {
+        padding: 30px 20px !important;
+        margin: 0 15px;
+    }
+
+    /* Forms */
+    .form-row,
+    .contact-box>div:last-child form>div:first-child {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+        padding: 10px 0;
+    }
+
+    /* Stats Modern */
+    .stats-container-modern>div {
+        flex: 0 0 100%;
+    }
+
+    /* Categories */
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .category-card {
+        width: 100%;
+        height: 150px;
+    }
+
+    /* Testimonials Carousel */
+    .testimonials-carousel {
+        padding: 10px;
+    }
+
+    .testimonial-card {
+        flex: 0 0 280px;
+        padding: 25px;
+    }
+
+    /* Showcase Header */
+    .showcase-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}
+
+/* =========================
+   Mobile Large (576px)
+   ========================= */
+@media (max-width: 576px) {
+
+    /* Container */
+    .container {
+        width: 92%;
+        padding: 0 10px;
+    }
+
+    /* Typography */
+    h1,
+    .hero h1,
+    .hero-title {
+        font-size: 1.75rem !important;
+    }
+
+    h2,
+    .section-title-modern {
+        font-size: 1.4rem !important;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    p {
+        font-size: 0.95rem;
+    }
+
+    /* Buttons */
+    .btn-primary,
+    .btn-primary-glow,
+    .btn-secondary {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .hero-actions a {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Course Cards */
+    .course-card,
+    .course-card-modern {
+        border-radius: 16px;
+    }
+
+    .course-image {
+        height: 180px;
+    }
+
+    .course-content {
+        padding: 15px;
+    }
+
+    /* Categories */
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Quick View */
+    .quick-box {
+        padding: 25px;
+        border-radius: 20px;
+    }
+
+    /* Trust Signals */
+    .trust-signals .container {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    /* Newsletter */
+    .newsletter form {
+        flex-direction: column !important;
+    }
+
+    .newsletter input,
+    .newsletter button {
+        width: 100% !important;
+    }
+
+    /* FAQ */
+    .faq-question {
+        padding: 18px !important;
+    }
+
+    .faq-question span {
+        font-size: 1rem !important;
+    }
+
+    /* About Page */
+    .about-stats .container>div {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px;
+    }
+
+    .about-stats h3 {
+        font-size: 2rem;
+    }
+
+    /* Policy Page */
+    .policy-section>div:last-child {
+        padding-right: 0 !important;
+    }
+
+    .policy-section h2 span:first-child {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 0.85rem !important;
+    }
+}
+
+/* =========================
+   Mobile Small (480px)
+   ========================= */
+@media (max-width: 480px) {
+
+    /* Typography */
+    h1,
+    .hero h1 {
+        font-size: 1.5rem !important;
+    }
+
+    /* Hero */
+    .hero-modern {
+        padding: 40px 0 60px;
+    }
+
+    .hero-badge {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    /* Course Meta */
+    .course-meta-modern {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* About Stats */
+    .about-stats .container>div {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Values Grid */
+    .our-values .container>div:last-child {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Protection Grid */
+    .policy-section div[style*="grid-template-columns: repeat(2"] {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* =========================
+   Bottom Navigation (Mobile)
+   ========================= */
+.bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+@media (max-width: 768px) {
+    .bottom-nav {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .bottom-nav .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        color: var(--dark-600);
+        font-size: 0.75rem;
+        text-decoration: none;
+        padding: 8px 15px;
+        transition: all 0.3s;
+    }
+
+    .bottom-nav .nav-item i {
+        font-size: 1.3rem;
+    }
+
+    .bottom-nav .nav-item.active,
+    .bottom-nav .nav-item:hover {
+        color: var(--primary-600);
+    }
+
+    /* Add padding to body for bottom nav */
+    body {
+        padding-bottom: 70px;
+    }
+
+    /* Hide WhatsApp button */
+    .whatsapp-btn-modern {
+        bottom: 80px !important;
+    }
+}
+
+/* =========================
+   Utility Classes for Responsive
+   ========================= */
+.hide-mobile {
+    display: block;
+}
+
+.show-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .hide-mobile {
+        display: none !important;
+    }
+
+    .show-mobile {
+        display: block !important;
+    }
+}
+
+/* =========================
+   Print Styles
+   ========================= */
+@media print {
+
+    .site-header,
+    .site-footer,
+    .bottom-nav,
+    .whatsapp-btn-modern,
+    .sticky-cta {
+        display: none !important;
+    }
+
+    body {
+        padding: 0;
+    }
+
+    .container {
+        width: 100%;
+        max-width: none;
+    }
+}
