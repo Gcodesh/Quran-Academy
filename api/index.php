@@ -2,6 +2,9 @@
 // Vercel Serverless Function Entry Point
 // This file handles all requests and routes them to the appropriate PHP files
 
+// Define project root for all includes
+define('PROJECT_ROOT', dirname(__DIR__));
+
 // Get the request URI
 $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
 
@@ -14,12 +17,12 @@ if ($path === '/' || $path === '/index.php') {
 }
 
 // Build the file path
-$filePath = __DIR__ . '/..' . $path;
+$filePath = PROJECT_ROOT . $path;
 
 // Check if file exists
 if (file_exists($filePath) && is_file($filePath) && pathinfo($filePath, PATHINFO_EXTENSION) === 'php') {
-    // Change working directory to project root
-    chdir(__DIR__ . '/..');
+    // Change working directory to the file's directory (for relative paths like ../includes/)
+    chdir(dirname($filePath));
     
     // Include the requested file
     require $filePath;
