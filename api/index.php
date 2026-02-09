@@ -17,14 +17,19 @@ if ($path === '/' || $path === '/index.php') {
 $filePath = __DIR__ . '/..' . $path;
 
 // Check if file exists
-if (file_exists($filePath) && is_file($filePath)) {
-    // Change to the file's directory
-    chdir(dirname($filePath));
+if (file_exists($filePath) && is_file($filePath) && pathinfo($filePath, PATHINFO_EXTENSION) === 'php') {
+    // Change working directory to project root
+    chdir(__DIR__ . '/..');
     
     // Include the requested file
     require $filePath;
+    exit;
 } else {
     // 404 Not Found
     http_response_code(404);
-    echo "404 - Page Not Found: " . htmlspecialchars($path);
+    echo "<!DOCTYPE html><html><head><title>404 Not Found</title></head><body>";
+    echo "<h1>404 - Page Not Found</h1>";
+    echo "<p>The requested page could not be found: " . htmlspecialchars($path) . "</p>";
+    echo "</body></html>";
+    exit;
 }
