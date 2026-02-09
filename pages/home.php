@@ -29,11 +29,11 @@ include '../includes/components/header.php';
                 عِلْمٌ يَبْنِي مُسْلِم
             </p>
             <div class="hero-cta-group" data-aos="fade-up" data-aos-delay="300">
-                <a href="courses.php" class="btn-premium-glow">
+                <a href="/pages/courses.php" class="btn-premium-glow">
                     <i class="fas fa-book-open"></i>
                     تصفح الدورات
                 </a>
-                <a href="register.php" class="btn-premium-outline">
+                <a href="/pages/register.php" class="btn-premium-outline">
                     <i class="fas fa-user-plus"></i>
                     انضم إلينا الآن
                 </a>
@@ -126,7 +126,7 @@ include '../includes/components/header.php';
                 <span class="badge-accent">محتوى حصري</span>
                 <h2>الدورات الأكثر تميزاً</h2>
             </div>
-            <a href="courses.php" class="view-all-link">مشاهدة الكل <i class="fas fa-arrow-left"></i></a>
+            <a href="/pages/courses.php" class="view-all-link">مشاهدة الكل <i class="fas fa-arrow-left"></i></a>
         </div>
 
         <div class="netflix-scroll-container">
@@ -295,9 +295,9 @@ include '../includes/components/header.php';
             <p class="cta-subtitle">انضم إلينا الآن وكن جزءاً من مجتمعنا التعليمي المتميز</p>
             <div class="cta-buttons">
                 <?php if (!isset($_SESSION['user_id'])): ?>
-                    <a href="register.php" class="btn-cta-primary pulse-animation">ابدأ رحلتك الآن <i class="fas fa-arrow-left"></i></a>
+                    <a href="/pages/register.php" class="btn-cta-primary pulse-animation">ابدأ رحلتك الآن <i class="fas fa-arrow-left"></i></a>
                 <?php else: ?>
-                    <a href="courses.php" class="btn-cta-primary pulse-animation">تصفح الدورات <i class="fas fa-arrow-left"></i></a>
+                    <a href="/pages/courses.php" class="btn-cta-primary pulse-animation">تصفح الدورات <i class="fas fa-arrow-left"></i></a>
                 <?php endif; ?>
             </div>
         </div>
