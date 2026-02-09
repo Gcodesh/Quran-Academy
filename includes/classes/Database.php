@@ -16,7 +16,7 @@ class Database {
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
-                PDO::MYSQL_ATTR_SSL_MODE => PDO::MYSQL_SSL_MODE_REQUIRED,
+                1014 => 1, // PDO::MYSQL_ATTR_SSL_MODE => PDO::MYSQL_SSL_MODE_REQUIRED
             ];
             $this->conn = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (PDOException $e) {
