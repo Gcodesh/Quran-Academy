@@ -1,7 +1,8 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) session_start();
-require_once '../includes/config/database.php';
-require_once '../includes/classes/Database.php';
+require_once __DIR__ . '/../includes/config/root.php';
+require_once path('includes/config/database.php');
+require_once path('includes/classes/Database.php');
 
 // --- AUTO MIGRATION (Safe Fail) ---
 // This attempts to add columns if they don't exist, handling the CLI failure issue.
@@ -89,14 +90,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 if ($stmt->execute([$name, $email, $password_hash, $role, $status, $phone, $country, $city, $age, $avatarPath, $idCardPath])) {
                     if ($role === 'teacher') {
-                        header("Location: teacher-pending.php");
+                        header("Location: " . url('pages/teacher-pending.php'));
                         exit;
                     } else {
                         // Auto Login for Students
                         $_SESSION['user_id'] = $conn->lastInsertId();
                         $_SESSION['user_role'] = 'student';
                         $_SESSION['user_name'] = $name;
-                        header("Location: dashboard/index.php");
+                        header("Location: " . url('pages/dashboard/index.php'));
                         exit;
                     }
                 } else {
@@ -375,7 +376,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit" class="btn-submit">إنشاء الحساب</button>
 
             <div class="auth-footer">
-                لديك حساب بالفعل؟ <a href="login.php">تسجيل الدخول</a>
+                لديك حساب بالفعل؟ <a href="<?= url('pages/login.php') ?>">تسجيل الدخول</a>
             </div>
         </form>
     </div>
