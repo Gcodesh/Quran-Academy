@@ -28,4 +28,8 @@ abstract class BaseRepository {
         $stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE id = :id");
         return $stmt->execute(['id' => $id]);
     }
+
+    public function getDb() {
+        return $this->db;
+    }
 }
