@@ -1,6 +1,8 @@
 <?php 
-require_once '../includes/config/database.php';
-require_once '../includes/classes/Database.php';
+require_once __DIR__ . '/../includes/config/root.php';
+require_once path('includes/config/database.php');
+require_once path('includes/classes/Database.php');
+
 $db = (new Database())->getConnection();
 
 // Fetch Featured Courses (e.g., top 3 by rating or random)
@@ -8,7 +10,7 @@ $stmt = $db->prepare("SELECT c.*, u.full_name as teacher_name FROM courses c LEF
 $stmt->execute();
 $featured_courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-include '../includes/components/header.php'; 
+include path('includes/components/header.php'); 
 ?>
 
 <!-- 1. Hero Modern Section -->
