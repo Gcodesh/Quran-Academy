@@ -92,6 +92,18 @@
     /* 9. Transitions */
     --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition: var(--transition-smooth);
+
+    /* 10. Legacy Compability (CRITICAL) */
+    --white: #ffffff;
+    --black: #000000;
+    --light-bg: var(--bg-surface);
+    --light-200: var(--bg-accent);
+    --dark-text: var(--text-main);
+    --muted-text: var(--text-muted);
+    --border-color: var(--border-main);
+    --dark-700: var(--text-light);
+    --dark-900: var(--text-main);
 }
 
 /* Dark Theme Overrides */
