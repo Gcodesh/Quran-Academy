@@ -37,9 +37,22 @@ render_dashboard_layout(function() {
     $my_courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
     // Gamification Integration
-    require_once __DIR__ . '/../../src/Services/GamificationService.php';
-    $gamification = new \App\Services\GamificationService();
-    $user_mastery = $gamification->getUserStats($user_id);
+    // Gamification Integration
+    $user_mastery = null;
+    try {
+        require_once __DIR__ . '/../../src/Services/GamificationService.php';
+        $gamification = new \App\Services\GamificationService(); // No args
+        $user_mastery = $gamification->getUserStats($user_id);
+    } catch (\Throwable $e) {
+        // Log error silently and use defaults
+        error_log("Dashboard Gamification Error: " . $e->getMessage());
+    }
+
+    // Safe Defauts
+    $rank_label = $user_mastery['rank'] ?? 'طالب مبتدئ'; // Fixed: DB column is 'rank'
+    $points = $user_mastery['points'] ?? 0;
+    $next_rank_label = $user_mastery['next_rank']['label'] ?? 'متقن';
+    $progress = $user_mastery['progress_percent'] ?? 0;
 
     // Certificates Integration
     $cert_stmt = $conn->prepare("SELECT c.*, crs.title as course_title 
@@ -69,19 +82,19 @@ render_dashboard_layout(function() {
                 <div>
                     <h1 style="font-size: 2.2rem; font-weight: 800; margin: 0; color: white;">أهلاً بك، <?= htmlspecialchars($user_name) ?> ✨</h1>
                     <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem; margin-top: 8px;">
-                        رتبتك الحالية: <strong style="color: var(--p-gold-500);"><?= htmlspecialchars($user_mastery['rank_level']) ?></strong> | 
-                        النقاط المكتسبة: <strong style="color: var(--p-emerald-500);"><?= number_format($user_mastery['points']) ?></strong>
+                        رتبتك الحالية: <strong style="color: var(--p-gold-500);"><?= htmlspecialchars($rank_label) ?></strong> | 
+                        النقاط المكتسبة: <strong style="color: var(--p-emerald-500);"><?= number_format($points) ?></strong>
                     </p>
                 </div>
             </div>
             
             <div class="next-rank-info" style="text-align: left; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); width: 300px;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.9rem;">
-                    <span>المستوى التالي: <strong><?= $user_mastery['next_rank']['label'] ?? 'متقن' ?></strong></span>
-                    <span style="color: var(--p-gold-500);"><?= $user_mastery['progress_percent'] ?>%</span>
+                    <span>المستوى التالي: <strong><?= htmlspecialchars($next_rank_label) ?></strong></span>
+                    <span style="color: var(--p-gold-500);"><?= $progress ?>%</span>
                 </div>
                 <div class="glow-progress">
-                    <div class="glow-progress-fill" style="width: <?= $user_mastery['progress_percent'] ?>%; background: var(--p-gold-500); box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);"></div>
+                    <div class="glow-progress-fill" style="width: <?= $progress ?>%; background: var(--p-gold-500); box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);"></div>
                 </div>
             </div>
         </div>
@@ -96,7 +109,7 @@ render_dashboard_layout(function() {
         </div>
         <div class="glass-card stat-card">
             <div class="stat-label">نقاط التميز</div>
-            <div class="stat-value" style="color: var(--p-emerald-600);"><?= number_format($user_mastery['points']) ?></div>
+            <div class="stat-value" style="color: var(--p-emerald-600);"><?= number_format($points) ?></div>
             <i class="fas fa-bolt" style="position: absolute; left: 25px; bottom: 25px; font-size: 2.5rem; opacity: 0.05;"></i>
         </div>
         <div class="glass-card stat-card">
@@ -160,7 +173,7 @@ render_dashboard_layout(function() {
                 <div class="p-rank-badge pulse-premium">
                     <i class="fas fa-medal"></i>
                 </div>
-                <h2 style="margin: 15px 0 5px; color: var(--p-emerald-900);"><?= htmlspecialchars($user_mastery['rank_level']) ?></h2>
+                <h2 style="margin: 15px 0 5px; color: var(--p-emerald-900);"><?= htmlspecialchars($rank_label) ?></h2>
                 <div class="p-badge p-badge-success">نشط حالياً</div>
             </div>
 
