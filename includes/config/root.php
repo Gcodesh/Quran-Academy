@@ -42,7 +42,9 @@ if (!function_exists('url')) {
             return $path;
         }
 
-        return $protocol . '://' . $host . $base . '/' . $cleanPath;
+        // Return root-relative path (e.g., /assets/css/main.css)
+        // This avoids mixed content issues (HTTP vs HTTPS)
+        return $base . '/' . $cleanPath;
     }
 }
 
