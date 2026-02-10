@@ -1,10 +1,11 @@
 <?php
 namespace App\Services;
 
+use App\Repositories\UserRepository;
 use PDO;
 
 class GamificationService {
-    private $db;
+    private $userRepo;
     
     const RANKS = [
         ['label' => 'طالب مبتدئ', 'threshold' => 0],
@@ -13,8 +14,8 @@ class GamificationService {
         ['label' => 'متقن', 'threshold' => 3001]
     ];
 
-    public function __construct(PDO $db) {
-        $this->db = $db;
+    public function __construct() {
+        $this->userRepo = new UserRepository();
     }
 
     /**
@@ -22,23 +23,18 @@ class GamificationService {
      */
     public function awardPoints(int $userId, int $points, string $reason) {
         try {
-            $this->db->beginTransaction();
-
-            // 1. Add to history
-            $stmt = $this->db->prepare("INSERT INTO user_points_history (user_id, points_added, reason) VALUES (?, ?, ?)");
-            $stmt->execute([$userId, $points, $reason]);
+            // 1. Add to history (Table missing in production, disabled for stability)
+            // TODO: Create user_points_history table or use audit_logs
+            // error_log("Points awarded: User $userId, Points $points, Reason: $reason");
 
             // 2. Update user total
-            $stmt = $this->db->prepare("UPDATE users SET points = points + ? WHERE id = ?");
-            $stmt->execute([$points, $userId]);
+            $this->userRepo->updatePoints($userId, $points);
 
             // 3. Check for Rank Update
             $this->updateRankLevel($userId);
 
-            $this->db->commit();
             return true;
         } catch (\Exception $e) {
-            $this->db->rollBack();
             error_log("Gamification Error: " . $e->getMessage());
             return false;
         }
@@ -48,9 +44,10 @@ class GamificationService {
      * Recalculate and update the rank level based on total points.
      */
     private function updateRankLevel(int $userId) {
-        $stmt = $this->db->prepare("SELECT points FROM users WHERE id = ?");
-        $stmt->execute([$userId]);
-        $totalPoints = $stmt->fetchColumn();
+        $stats = $this->userRepo->getGamificationStats($userId);
+        if (!$stats) return;
+
+        $totalPoints = $stats['total_points'] ?? 0;
 
         $newRank = 'طالب مبتدئ';
         foreach (array_reverse(self::RANKS) as $rank) {
@@ -60,17 +57,17 @@ class GamificationService {
             }
         }
 
-        $stmt = $this->db->prepare("UPDATE users SET rank_level = ? WHERE id = ?");
-        $stmt->execute([$newRank, $userId]);
+        // Only update if rank changed
+        if (($stats['rank'] ?? '') !== $newRank) {
+            $this->userRepo->updateRank($userId, $newRank);
+        }
     }
 
     /**
      * Get user's current gamification profile.
      */
     public function getUserStats(int $userId) {
-        $stmt = $this->db->prepare("SELECT points, rank_level FROM users WHERE id = ?");
-        $stmt->execute([$userId]);
-        $stats = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stats = $this->userRepo->getGamificationStats($userId);
 
         if (!$stats) return null;
 
@@ -82,10 +79,10 @@ class GamificationService {
         foreach (self::RANKS as $index => $rank) {
             if ($currentPoints < $rank['threshold']) {
                 $nextRank = $rank;
-                $prevThreshold = self::RANKS[$index - 1]['threshold'];
+                $prevThreshold = isset(self::RANKS[$index - 1]) ? self::RANKS[$index - 1]['threshold'] : 0;
                 $range = $rank['threshold'] - $prevThreshold;
                 $currentInRange = $currentPoints - $prevThreshold;
-                $progress = round(($currentInRange / $range) * 100);
+                $progress = ($range > 0) ? round(($currentInRange / $range) * 100) : 0;
                 break;
             }
         }

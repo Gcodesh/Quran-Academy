@@ -27,4 +27,9 @@ class UserRepository extends BaseRepository {
         $stmt->execute(['id' => $userId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function updateRank($userId, $rank) {
+        $stmt = $this->db->prepare("UPDATE {$this->table} SET `rank` = :rank WHERE id = :id");
+        return $stmt->execute(['rank' => $rank, 'id' => $userId]);
+    }
 }
