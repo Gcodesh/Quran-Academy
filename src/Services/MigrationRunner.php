@@ -36,18 +36,40 @@ class MigrationRunner {
                 // PDO exec handles multiple statements in some drivers, but separation is safer
                 // For now, assuming standard SQL dumps supported by PDO exec
                 // Ensure getDb exists (Deployment sync check)
+                // Ensure getDb exists (Deployment sync check)
                 if (!method_exists($this->repo, 'getDb')) {
                     throw new \Exception("System update in progress. Please refresh in 30 seconds. (BaseRepository outdated)");
                 }
                 
-                $this->repo->getDb()->exec($sql);
+                // Split SQL into statements to handle them individually
+                // valid for these schema files which likely don't contain complex stored procs with inner semicolons
+                $statements = array_filter(array_map('trim', explode(';', $sql)));
+
+                foreach ($statements as $stmt) {
+                    if (empty($stmt)) continue;
+                    
+                    try {
+                        $this->repo->getDb()->exec($stmt);
+                    } catch (PDOException $e) {
+                        // Check for "Already Exists" errors to make migrations idempotent
+                        // 1050: Table already exists
+                        // 1060: Duplicate column name
+                        // 1061: Duplicate key name
+                        // 1826: Duplicate foreign key constraint
+                        $code = $e->errorInfo[1] ?? 0;
+                        if (in_array($code, [1050, 1060, 1061, 1826])) {
+                            // Log warning but continue
+                            error_log("Migration Warning [$filename]: " . $e->getMessage());
+                            continue;
+                        }
+                        throw $e; // Re-throw critical errors
+                    }
+                }
                 
                 $this->repo->logMigration($filename, $newBatch);
                 $output[] = "✅ Migrated: $filename";
                 $count++;
             } catch (PDOException $e) {
-                // If column already exists (1054/1060), distinct logic could go here
-                // For now, creating a resilient check is better in SQL itself (IF NOT EXISTS)
                 $output[] = "❌ Failed: $filename - " . $e->getMessage();
                 return $output; // Stop on error
             }
