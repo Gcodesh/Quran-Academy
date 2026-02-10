@@ -35,6 +35,11 @@ class MigrationRunner {
                 // Execute SQL (handling multiple statements if needed)
                 // PDO exec handles multiple statements in some drivers, but separation is safer
                 // For now, assuming standard SQL dumps supported by PDO exec
+                // Ensure getDb exists (Deployment sync check)
+                if (!method_exists($this->repo, 'getDb')) {
+                    throw new \Exception("System update in progress. Please refresh in 30 seconds. (BaseRepository outdated)");
+                }
+                
                 $this->repo->getDb()->exec($sql);
                 
                 $this->repo->logMigration($filename, $newBatch);
