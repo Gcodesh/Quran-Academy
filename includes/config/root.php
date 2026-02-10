@@ -27,7 +27,14 @@ if (!function_exists('url')) {
     }
 }
 
-// Start session if not started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+// Helper function to safely start session
+if (!function_exists('start_active_session')) {
+    function start_active_session() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
 }
+
+// Start session automatically
+start_active_session();

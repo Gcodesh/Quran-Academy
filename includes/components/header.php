@@ -23,13 +23,14 @@ $base_path = $is_subfolder ? '../../' : '../';
         $site_name = $site_settings['site_name'] ?? $site_name;
     }
     ?>
-    <title><?= htmlspecialchars($site_name) ?> | عِلْمٌ يَبْنِي مُسْلِم</title>
-    <link rel="icon" type="image/png" href="<?= $base_path ?><?= $custom_favicon ?>">
-    <link rel="shortcut icon" href="<?= $base_path ?><?= $custom_favicon ?>">
+    <title>منصة بناء المسلم التعليمية</title>
+    <?php start_active_session(); ?>
+    <link rel="icon" type="image/png" href="<?= url($custom_favicon) ?>">
+    <link rel="shortcut icon" href="<?= url($custom_favicon) ?>">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -37,11 +38,11 @@ $base_path = $is_subfolder ? '../../' : '../';
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- CSS Files -->
-    <link rel="stylesheet" href="<?= $base_path ?>assets/css/main.css">
-    <link rel="stylesheet" href="<?= $base_path ?>assets/css/components/cards.css">
-    <link rel="stylesheet" href="<?= $base_path ?>assets/css/responsive.css">
+    <link rel="stylesheet" href="<?= url('assets/css/main.css') ?>">
+    <link rel="stylesheet" href="<?= url('assets/css/components/cards.css') ?>">
+    <link rel="stylesheet" href="<?= url('assets/css/responsive.css') ?>">
     <?php if ($is_subfolder): ?>
-    <link rel="stylesheet" href="<?= $base_path ?>assets/css/dashboard.css">
+    <link rel="stylesheet" href="<?= url('assets/css/dashboard.css') ?>">
     <?php endif; ?>
 </head>
 <body class="perf-optimized">
@@ -51,17 +52,17 @@ $base_path = $is_subfolder ? '../../' : '../';
     <header class="site-header">
         <div class="container">
             <div class="logo">
-                <a href="<?= $base_path ?>pages/home.php">
-                    <img src="<?= $base_path ?><?= $custom_logo ?>" alt="Logo" width="150" height="50" style="object-fit: contain;" onerror="this.src='https://placehold.co/150x50?text=Logo'">
+                <a href="<?= url('pages/home.php') ?>">
+                    <img src="<?= url($custom_logo) ?>" alt="Logo" width="150" height="50" style="object-fit: contain;" onerror="this.src='https://placehold.co/150x50?text=Logo'">
                 </a>
             </div>
             <nav class="main-nav" id="mainNav">
                 <ul>
-                    <li><a href="<?= $base_path ?>pages/home.php">الرئيسية</a></li>
-                    <li><a href="<?= $base_path ?>pages/courses.php">الدورات</a></li>
-                    <li><a href="<?= $base_path ?>pages/teachers.php">المعلمون</a></li>
-                    <li><a href="<?= $base_path ?>pages/about.php">من نحن</a></li>
-                    <li><a href="<?= $base_path ?>pages/contact.php">اتصل بنا</a></li>
+                    <li><a href="<?= url('pages/home.php') ?>">الرئيسية</a></li>
+                    <li><a href="<?= url('pages/courses.php') ?>">الدورات</a></li>
+                    <li><a href="<?= url('pages/teachers.php') ?>">المعلمون</a></li>
+                    <li><a href="<?= url('pages/about.php') ?>">من نحن</a></li>
+                    <li><a href="<?= url('pages/contact.php') ?>">اتصل بنا</a></li>
                 </ul>
             </nav>
             
@@ -73,10 +74,9 @@ $base_path = $is_subfolder ? '../../' : '../';
             <div class="quick-auth">
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <?php 
-                        $dashboard_link = $base_path . 'pages/';
-                        if ($_SESSION['user_role'] == 'admin') $dashboard_link .= 'admin/index.php';
-                        elseif ($_SESSION['user_role'] == 'teacher') $dashboard_link .= 'teacher/index.php';
-                        else $dashboard_link .= 'dashboard/student.php';
+                        $dashboard_link = url('pages/dashboard/student.php');
+                        if ($_SESSION['user_role'] == 'admin') $dashboard_link = url('pages/admin/index.php');
+                        elseif ($_SESSION['user_role'] == 'teacher') $dashboard_link = url('pages/teacher/index.php');
                     ?>
                     <a href="<?= $dashboard_link ?>" class="btn-primary" style="background: var(--light-bg); color: var(--primary-color); border: 1px solid var(--primary-color);">
                         <i class="fas fa-user-circle"></i> مرحباً، <?= htmlspecialchars(explode(' ', $_SESSION['user_name'])[0]) ?>
