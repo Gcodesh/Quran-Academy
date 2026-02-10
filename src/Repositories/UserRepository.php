@@ -23,7 +23,8 @@ class UserRepository extends BaseRepository {
 
     public function getGamificationStats($userId) {
         // Safe selection of gamification fields
-        $stmt = $this->db->prepare("SELECT id, full_name, points, rank, total_points FROM {$this->table} WHERE id = :id");
+        // 'rank' is a reserved keyword in MySQL 8.0+/TiDB, must be backticked
+        $stmt = $this->db->prepare("SELECT id, full_name, points, `rank`, total_points FROM {$this->table} WHERE id = :id");
         $stmt->execute(['id' => $userId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
