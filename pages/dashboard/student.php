@@ -1,14 +1,20 @@
 <?php
-require_once __DIR__ . '/layout.php';
-require_once __DIR__ . '/../../includes/config/database.php';
-require_once __DIR__ . '/../../includes/classes/Database.php';
-require_once __DIR__ . '/../../includes/auth_middleware.php';
-
-// Ensure only students access this page
-if ($_SESSION['user_role'] !== 'student') {
-    header('Location: index.php');
-    exit;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+
+require_once __DIR__ . '/../../includes/config/root.php';
+require_once path('includes/config/database.php');
+require_once path('includes/classes/Database.php');
+
+// Redirect if not logged in or not a student
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'student') {
+    header("Location: " . url('pages/login.php'));
+    exit();
+}
+
+require_once __DIR__ . '/layout.php';
+require_once path('src/Services/GamificationService.php');
 
 $page_title = 'لوحة التميز';
 
