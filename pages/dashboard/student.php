@@ -38,7 +38,7 @@ render_dashboard_layout(function() {
     
     // Gamification Integration
     require_once __DIR__ . '/../../src/Services/GamificationService.php';
-    $gamification = new \App\Services\GamificationService($conn);
+    $gamification = new \App\Services\GamificationService();
     $user_mastery = $gamification->getUserStats($user_id);
 
     // Certificates Integration

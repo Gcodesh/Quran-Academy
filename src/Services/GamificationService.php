@@ -1,6 +1,8 @@
 <?php
 namespace App\Services;
 
+require_once __DIR__ . '/../Repositories/UserRepository.php';
+
 use App\Repositories\UserRepository;
 use PDO;
 
