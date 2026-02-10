@@ -9,6 +9,7 @@ if (file_exists($envFile)) {
         $_ENV[trim($name)] = trim($value);
     }
 }
+require_once __DIR__ . '/root.php';
 
 // Check for environment variables (Vercel uses getenv, local uses $_ENV or defaults)
 $db_host = getenv('DB_HOST') ?: ($_ENV['DB_HOST'] ?? 'localhost');

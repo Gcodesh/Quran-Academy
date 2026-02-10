@@ -12,7 +12,7 @@ class Database {
     private function connect() {
         try {
             // Create temporary certificate file for TiDB Cloud SSL
-            $certContent = file_get_contents(__DIR__ . '/../config/ca-cert.pem');
+            $certContent = file_get_contents(path('includes/config/ca-cert.pem'));
             $tempCertPath = sys_get_temp_dir() . '/tidb-ca-cert.pem';
             file_put_contents($tempCertPath, $certContent);
             
