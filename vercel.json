@@ -10,7 +10,7 @@
             "dest": "/assets/$1"
         },
         {
-            "src": "/(.*\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot))",
+            "src": "/(.*\\.(css|js|jpg|jpeg|png|gif|svg|ico|woff|woff2|ttf|eot|webp|mp4|webm))",
             "dest": "/$1"
         },
         {
