@@ -14,106 +14,108 @@
    Adding it here reinforces it. */
 
 :root {
-    /* Adaptive Colors - Light Theme (Soft Premium) */
-    --bg-main: #fcfdfd;
-    /* Soft Off-white */
-    --bg-surface: #ffffff;
+    /* Royal Emerald - Premium Design System */
+
+    /* 1. Base Colors (Backgrounds) */
+    --bg-main: #ffffff;
+    /* Clean White */
+    --bg-surface: #f8fafc;
+    /* Soft Gray for sections */
+    --bg-card: #ffffff;
+    /* Card Background */
     --bg-accent: #f1f5f9;
-    --bg-surface-inverse: #020617;
-    /* Slate 950 */
+    /* Very Light Gray for inputs/secondary */
 
+    /* 2. Typography Colors (Readability First) */
     --text-main: #0f172a;
-    /* Deep Slate 900 */
+    /* Deep Navy - Softer than black */
     --text-muted: #64748b;
-    --text-inverse: #f8fafc;
-    /* Soft White */
+    /* Slate Gray */
+    --text-light: #94a3b8;
+    /* Light Slate */
+    --text-inverse: #ffffff;
+    /* White text on dark/colored bg */
 
-    --border-main: #e2e8f0;
-    --border-strong: #cbd5e1;
-
-    /* Legacy Mappings (For stability with older files) */
-    --dark-text: var(--text-main);
-    --muted-text: var(--text-muted);
-    --light-bg: var(--bg-accent);
-    --border-color: var(--border-main);
-    --white: #ffffff;
-    --gray-900: #0f172a;
-
-    /* Modern Typography */
-    --font-heading: 'Cairo', 'Tajawal', sans-serif;
-    --font-body: 'IBM Plex Sans Arabic', 'Segoe UI', sans-serif;
-    --font-quran: 'Lateef', 'Amiri', serif;
-
-    /* Primary Emerald Glow Scale */
+    /* 3. Primary Color: Royal Emerald (Trust & Growth) */
     --primary-900: #064e3b;
+    /* Deepest Emerald */
     --primary-800: #065f46;
-    --primary-700: #0f766e;
-    --primary-600: #0d9488;
+    --primary-700: #047857;
+    --primary-600: #059669;
+    /* Main Brand Color */
     --primary-500: #10b981;
-    /* Emerald Glow */
+    /* Vibrant Emerald */
     --primary-400: #34d399;
-    --primary-300: #6ee7b7;
-    --primary-200: #a7f3d0;
     --primary-100: #d1fae5;
+    /* Light/Bg Tint */
     --primary-50: #ecfdf5;
 
+    /* Functional Aliases */
     --primary-color: var(--primary-600);
-    --primary-dark: var(--primary-900);
+    --primary-dark: var(--primary-800);
     --primary-light: var(--primary-400);
 
-    /* Secondary Gold */
+    /* 4. Secondary Color: Soft Gold (Distinction & Warmth) */
     --gold-600: #d97706;
     --gold-500: #f59e0b;
+    /* Main Gold */
     --gold-400: #fbbf24;
+    --gold-100: #fef3c7;
+
+    --secondary-color: var(--gold-500);
     --accent-color: var(--gold-600);
 
-    /* Effects */
-    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.3);
+    /* 5. Borders & Dividers */
+    --border-main: #e2e8f0;
+    --border-light: #f1f5f9;
+    --border-focus: var(--primary-400);
 
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, #020617 0%, #064e3b 100%);
-    --gradient-primary: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-500) 100%);
-    --gradient-premium: linear-gradient(-45deg, #10b981, #059669, #064e3b, #020617);
+    /* 6. Shadows (Soft & Modern) */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 15px rgba(16, 185, 129, 0.2);
 
-    /* Glassmorphism */
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.15);
-    --glass-blur: blur(12px);
+    /* 7. Typography */
+    --font-heading: 'Tajawal', sans-serif;
+    --font-body: 'IBM Plex Sans Arabic', sans-serif;
+    --font-quran: 'Amiri', serif;
 
-    /* Animation Tokens */
-    --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    /* 8. UI Radii */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-full: 9999px;
+
+    /* 9. Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Dark Mode Overrides (Slate & Zinc Premium) */
+/* Dark Theme Overrides */
 [data-theme="dark"] {
-    --bg-main: #020617;
-    /* Slate 950 */
-    --bg-surface: #0f172a;
+    --bg-main: #0f172a;
     /* Slate 900 */
-    --bg-accent: #1e293b;
+    --bg-surface: #1e293b;
     /* Slate 800 */
-    --bg-surface-inverse: #ffffff;
+    --bg-card: #1e293b;
+    --bg-accent: #334155;
+    /* Slate 700 */
 
-    --text-main: #f1f5f9;
-    /* Slate 100 */
-    --text-muted: #94a3b8;
-    /* Slate 400 */
+    --text-main: #f8fafc;
+    --text-muted: #cbd5e1;
+    --text-light: #94a3b8;
     --text-inverse: #0f172a;
 
-    --border-main: #1e293b;
-    --border-strong: #334155;
+    --border-main: #334155;
+    --border-light: #1e293b;
 
-    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-
-    --glass-bg: rgba(15, 23, 42, 0.8);
-    --glass-border: rgba(255, 255, 255, 0.05);
-
-    /* Reverse variables that assume light background */
-    --white: #0f172a;
+    --primary-color: var(--primary-500);
+    /* Lighter for dark mode */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
 }
 
 /* Premium Animations */
@@ -267,41 +269,49 @@ a {
 }
 
 /* Standard Buttons */
+/* Standard Buttons */
 .btn-primary {
-    background: var(--gradient-primary);
-    color: var(--white);
-    padding: 14px 32px;
-    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary-700), var(--primary-600));
+    color: #ffffff;
+    padding: 12px 28px;
+    border-radius: var(--radius-full);
     font-weight: 600;
-    transition: var(--transition);
+    transition: var(--transition-smooth);
     box-shadow: var(--shadow-md);
     border: none;
     cursor: pointer;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
-    background: linear-gradient(135deg, var(--primary-700), var(--primary-600));
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-500));
 }
 
 .btn-secondary {
-    background: var(--gradient-gold);
-    color: var(--gray-900);
-    padding: 14px 32px;
-    border-radius: 50px;
+    background: var(--bg-surface);
+    color: var(--text-main);
+    border: 1px solid var(--border-main);
+    padding: 12px 28px;
+    border-radius: var(--radius-full);
     font-weight: 600;
-    transition: var(--transition);
+    transition: var(--transition-smooth);
     box-shadow: var(--shadow-sm);
-    border: none;
     cursor: pointer;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-secondary:hover {
+    background: var(--bg-accent);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
 }
 
 .btn-ghost {
@@ -344,23 +354,30 @@ a {
    Header Styles
    ============================== */
 .site-header {
-    background-color: var(--bg-surface);
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-main);
+    box-shadow: var(--shadow-sm);
     position: sticky;
     top: 0;
     z-index: 1000;
     transition: var(--transition-smooth);
 }
 
+[data-theme="dark"] .site-header {
+    background-color: rgba(15, 23, 42, 0.95);
+}
+
 .site-header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 20px;
+    padding: 16px 20px;
 }
 
 .site-header .logo img {
-    height: 55px;
+    height: 48px;
     transition: var(--transition-smooth);
 }
 
