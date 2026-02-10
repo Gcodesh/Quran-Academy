@@ -100,7 +100,11 @@ $courses = $courseRepo->findAllPublished();
                             <i class="fas fa-star"></i>
                             <span><?= number_format($course['rating'] ?? 0, 1) ?></span>
                         </div>
-                        <a href="<?= url('pages/course-details.php?id=' . $course['id']) ?>" class="btn-enroll">التفاصيل</a>
+                        <?php if($price == 0): ?>
+                            <a href="<?= url('pages/course-details.php?id=' . $course['id']) ?>" class="btn-enroll" style="background: var(--secondary-color); color: var(--primary-color); font-weight: bold;">سجل مجاناً</a>
+                        <?php else: ?>
+                            <a href="<?= url('pages/course-details.php?id=' . $course['id']) ?>" class="btn-enroll">اشترك الآن</a>
+                        <?php endif; ?>
                     </div>
                             </div>
                         </div>

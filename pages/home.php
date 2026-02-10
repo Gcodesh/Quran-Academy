@@ -153,7 +153,7 @@ include path('includes/components/header.php');
                                 <span><i class="fas fa-star"></i> 4.9</span>
                                 <span><i class="fas fa-play"></i> <?= rand(15, 40) ?> درس</span>
                             </div>
-                            <a href="course-details.php?id=<?= $course['id'] ?>" class="btn-play-sm"><i class="fas fa-play"></i> ابدأ الآن</a>
+                            <a href="course-details.php?id=<?= $course['id'] ?>" class="btn-play-sm"><i class="fas fa-play"></i> اشترك الآن</a>
                         </div>
                     </div>
                 </div>
