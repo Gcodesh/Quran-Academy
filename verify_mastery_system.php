@@ -1,25 +1,11 @@
 <?php
 require_once 'includes/config/database.php';
 require_once 'includes/classes/Database.php';
-require_once 'src/Services/GamificationService.php';
-require_once 'src/Services/CertificateGenerator.php';
-
-function log_result($msg, $success = true) {
-    echo ($success ? "✅ " : "❌ ") . $msg . "\n";
-}
-
-try {
-    $db = new Database();
-    $conn = $db->getConnection();
+    require_once __DIR__ . '/src/Services/GamificationService.php';
+    require_once __DIR__ . '/src/Services/CertificateGenerator.php';
     
-    // 1. Setup Test User
-    $test_email = 'mastery_test@example.com';
-    $conn->prepare("DELETE FROM users WHERE email = ?")->execute([$test_email]);
-    $conn->prepare("INSERT INTO users (full_name, email, password_hash, role, status, points, rank_level) VALUES (?, ?, 'hash', 'student', 'active', 0, 'طالب مبتدئ')")
-         ->execute(['طالب تجربة الإتقان', $test_email]);
-    $userId = $conn->lastInsertId();
-    
-    $gamification = new \App\Services\GamificationService($conn);
+    // Fixed: GamificationService no longer requires DB connection in constructor (it uses internal instance)
+    $gamification = new \App\Services\GamificationService(); 
     $certService = new \App\Services\CertificateGenerator($conn);
     
     log_result("Test User Created: ID $userId");

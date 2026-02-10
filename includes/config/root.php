@@ -59,3 +59,19 @@ if (!function_exists('start_active_session')) {
 
 // Start session automatically
 start_active_session();
+
+// Production Error Handling (The "Don't Show Errors" Policy)
+// If we are on Vercel (or any non-local environment), hide errors from the user
+$is_localhost = ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1');
+
+if (!$is_localhost) {
+    // Production: Log errors, don't show them
+    ini_set('display_errors', 0);
+    ini_set('display_startup_errors', 0);
+    error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+} else {
+    // Development: Show everything
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+}
