@@ -67,10 +67,13 @@ include '../includes/components/header.php';
                 <?php foreach ($courses as $course): ?>
                     <?php 
                         // Determine badge based on logic
+                        $level = $course['level'] ?? 'beginner'; // Default to beginner if missing
+                        $price = $course['price'] ?? 0;
+                        
                         $badge = '';
-                        if ($course['level'] == 'beginner') $badge = 'جديد';
-                        elseif ($course['price'] == 0) $badge = 'مجاني';
-                        elseif ($course['price'] > 50) $badge = 'مميز';
+                        if ($level == 'beginner') $badge = 'جديد';
+                        elseif ($price == 0) $badge = 'مجاني';
+                        elseif ($price > 50) $badge = 'مميز';
                         
                         // Map category slug
                         $cat_slug = $course['category_slug'] ?? 'general';
@@ -78,17 +81,17 @@ include '../includes/components/header.php';
                     <div class="course-card" 
                          data-id="course_<?= $course['id'] ?>" 
                          data-category="<?= $cat_slug ?>" 
-                         data-level="<?= $course['level'] ?>" 
-                         data-price="<?= $course['price'] ?>">
+                         data-level="<?= $level ?>" 
+                         data-price="<?= $price ?>">
                         <div class="course-image">
                             <?php 
-                                $thumb = $course['thumbnail'];
+                                $thumb = $course['thumbnail'] ?? ''; // Handle missing thumbnail
                                 if ($thumb && strpos($thumb, 'http') !== 0 && strpos($thumb, '../') !== 0) {
                                     $thumb = '../' . $thumb;
                                 }
-                                $thumb = $thumb ?: '../assets/images/placeholder.jpg';
+                                $thumb = $thumb ?: url('assets/images/placeholder.jpg'); // Use url() for placeholder
                             ?>
-                            <img src="<?= htmlspecialchars($thumb) ?>" alt="<?= htmlspecialchars($course['title']) ?>" onerror="this.src='../assets/images/placeholder.jpg'">
+                            <img src="<?= htmlspecialchars($thumb) ?>" alt="<?= htmlspecialchars($course['title']) ?>" onerror="this.src='<?= url('assets/images/placeholder.jpg') ?>'">
                             <?php if($badge): ?><span class="badge"><?= $badge ?></span><?php endif; ?>
                             <button class="wishlist-btn fav-btn" data-id="<?= $course['id'] ?>"><i class="far fa-heart"></i></button>
                         </div>
