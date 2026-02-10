@@ -1,9 +1,13 @@
 <?php
-require_once '../includes/auth_middleware.php'; // Ensure session for favorites
-require_once '../includes/config/database.php';
-require_once '../includes/classes/Database.php';
+require_once '../includes/auth_middleware.php'; // Ensureif (session_status() === PHP_SESSION_NONE) session_start();
+require_once __DIR__ . '/../includes/config/root.php';
+require_once path('includes/config/database.php');
+require_once path('includes/classes/Database.php');
 
 $db = (new Database())->getConnection();
+
+// Include Header
+include path('includes/components/header.php'); 
 
 // Fetch All Published Courses with Teacher & Category info
 $sql = "SELECT c.*, u.full_name as teacher_name, cat.name as category_name, cat.slug as category_slug 
@@ -93,12 +97,13 @@ include '../includes/components/header.php';
                             <p><?= mb_strimwidth(htmlspecialchars($course['description']), 0, 120, '...') ?></p>
                             <p class="teacher">المعلم: <?= htmlspecialchars($course['teacher_name'] ?? 'غير محدد') ?></p>
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-                                <span style="color: var(--muted-text); font-size: 0.9rem;">
-                                    ⭐ 4.8 (<?= rand(50, 200) ?> تقييم)
-                                </span>
-                                <a href="course-details.php?id=<?= $course['id'] ?>" class="btn-primary">
-                                    <?= ($course['price'] == 0) ? 'سجل مجاناً' : 'اشترك الآن' ?>
-                                </a>
+                                <div class="course-footer">
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span><?= number_format($course['rating'] ?? 0, 1) ?></span>
+                        </div>
+                        <a href="<?= url('pages/course-details.php?id=' . $course['id']) ?>" class="btn-enroll">التفاصيل</a>
+                    </div>
                             </div>
                         </div>
                     </div>
@@ -283,4 +288,4 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 </style>
 
-<?php include '../includes/components/footer.php'; ?>
+<?php include path('includes/components/footer.php'); ?>
