@@ -8,17 +8,13 @@ $db = (new Database())->getConnection();
 
 // Include Header
 include path('includes/components/header.php'); 
+require_once path('src/Repositories/CourseRepository.php');
+
+use App\Repositories\CourseRepository;
 
 // Fetch All Published Courses with Teacher & Category info
-$sql = "SELECT c.*, u.full_name as teacher_name, cat.name as category_name, cat.slug as category_slug 
-        FROM courses c 
-        LEFT JOIN users u ON c.teacher_id = u.id 
-        LEFT JOIN categories cat ON c.category_id = cat.id 
-        WHERE c.status = 'published' 
-        ORDER BY c.created_at DESC";
-$stmt = $db->prepare($sql);
-$stmt->execute();
-$courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$courseRepo = new CourseRepository();
+$courses = $courseRepo->findAllPublished();
 
 include '../includes/components/header.php';
 ?>
