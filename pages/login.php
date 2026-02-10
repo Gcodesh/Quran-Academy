@@ -1,19 +1,22 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) session_start();
+require_once __DIR__ . '/../includes/config/root.php';
+// Header already uses path() inside it if updated, but here we include it using path()
+include path('includes/components/header.php'); 
+
 if (isset($_SESSION['user_id'])) {
-    header("Location: home.php");
+    header("Location: " . url('pages/home.php'));
     exit();
 }
-include __DIR__ . '/../includes/components/header.php'; ?>
+?>
 
 <main class="auth-page">
     <section class="login-section">
         <div class="container">
             <div class="auth-back-link">
-                <a href="home.php"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
+                <a href="<?= url('pages/home.php') ?>"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
             </div>
             <h2>تسجيل الدخول</h2>
-            <form id="login-form" method="POST" action="../api/auth.php">
+            <form id="login-form" method="POST" action="<?= url('api/auth.php') ?>">
                 <div class="form-group">
                     <label for="email">البريد الإلكتروني</label>
                     <div class="input-with-icon">
@@ -29,7 +32,7 @@ include __DIR__ . '/../includes/components/header.php'; ?>
                     </div>
                 </div>
                 <button type="submit" class="btn-primary">تسجيل الدخول</button>
-                <p class="auth-link">ليس لديك حساب؟ <a href="register.php">إنشاء حساب جديد</a></p>
+                <p class="auth-link">ليس لديك حساب؟ <a href="<?= url('pages/register.php') ?>">إنشاء حساب جديد</a></p>
             </form>
         </div>
     </section>
@@ -64,9 +67,9 @@ document.getElementById('login-form').addEventListener('submit', async function(
             setTimeout(() => {
                 // Redirect based on role
                 if (data.user && data.user.role === 'student') {
-                    window.location.href = 'home.php';
+                    window.location.href = '<?= url("pages/home.php") ?>';
                 } else {
-                    window.location.href = 'dashboard/index.php';
+                    window.location.href = '<?= url("pages/dashboard/index.php") ?>';
                 }
             }, 1000);
         } else {
@@ -76,7 +79,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
                 statusMsg.className = 'auth-status error';
                 
                 setTimeout(() => {
-                    window.location.href = 'register.php';
+                    window.location.href = '<?= url("pages/register.php") ?>';
                 }, 2000);
             } else {
                 statusMsg.innerHTML = `<i class="fas fa-times-circle"></i> ${data.message || 'فشل تسجيل الدخول'}`;
@@ -106,4 +109,4 @@ document.getElementById('login-form').addEventListener('submit', async function(
 .auth-status.error { background: #fee2e2; color: #dc2626; }
 </style>
 
-<?php include __DIR__ . '/../includes/components/footer.php'; ?>
+<?php include path('includes/components/footer.php'); ?>
