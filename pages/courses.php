@@ -12,11 +12,10 @@ require_once path('src/Repositories/CourseRepository.php');
 
 use App\Repositories\CourseRepository;
 
+
 // Fetch All Published Courses with Teacher & Category info
 $courseRepo = new CourseRepository();
 $courses = $courseRepo->findAllPublished();
-
-include '../includes/components/header.php';
 ?>
 
 <!-- Courses Page Header -->
