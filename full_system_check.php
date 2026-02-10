@@ -29,7 +29,7 @@ function tableExists($db, $tableName) {
 
 function columnExists($db, $tableName, $columnName) {
     try {
-        $rs = $db->query("SELECT $columnName FROM $tableName LIMIT 1");
+        $rs = $db->query("SELECT `$columnName` FROM `$tableName` LIMIT 1");
         return $rs !== false;
     } catch (Exception $e) {
         return false;
