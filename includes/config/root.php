@@ -19,11 +19,30 @@ if (!function_exists('url')) {
         $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
         $host = $_SERVER['HTTP_HOST'];
         
-        // Handle Vercel or Root deployment
-        $baseUrl = $protocol . '://' . $host;
+        // Calculate base path relative to server root
+        // Example: /islamic-education-platform/pages/home.php -> /islamic-education-platform/
+        $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])); 
+        
+        // We need to find the root of the project from the current script.
+        // Since we don't know the depth, let's rely on a fixed structure relative to PROJECT_ROOT?
+        // No, file paths don't help with URLs directly without mapping.
+        
+        // ROBUST XAMPP/Vercel FIX:
+        // Detect if we are in a subfolder structure known to be part of the app
+        $base = $scriptDir;
+        
+        // Remove common subfolders from the path to find the "root" URL
+        $base = str_replace(['/pages/dashboard', '/pages/admin', '/pages/teacher', '/pages/auth', '/pages', '/api'], '', $base);
+        $base = rtrim($base, '/');
         
         $cleanPath = ltrim($path, '/');
-        return $baseUrl . '/' . $cleanPath;
+        
+        // Check if path is absolute URL
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            return $path;
+        }
+
+        return $protocol . '://' . $host . $base . '/' . $cleanPath;
     }
 }
 
